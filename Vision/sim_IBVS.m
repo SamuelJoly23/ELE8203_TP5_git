@@ -21,9 +21,9 @@ fmat = [cam.f 0 0;0 cam.f 0];
 p0 = fmat * (cam.K\[p0_pix;ones(1,4)]);  % cam.K est la matrice de calibration de la caméra
 
 %% Positions désirées des points images
-%Tcam_d = SE3.Rz(-deg2rad(60));   % pose désirée de la caméra - simple rotation autour de z
-Tcam_d = SE3.Rz(-deg2rad(20))*SE3.Ry(deg2rad(10))*SE3.Rx(deg2rad(5));  % demandé dans le sujet
-angles_des = tr2rpy(Tcam_d,"zyx");
+%Tcam_d = SE3.Rz(-60);   % pose désirée de la caméra - simple rotation autour de z
+Tcam_d = SE3.Rz(-20)*SE3.Ry(10)*SE3.Rx(5);
+angles_des = tr2rpy(Tcam_d);
 cam.plot(P, 'pose', Tcam_d);
 
 % Coordonnées des points désirés - seule spécification nécessaire pour IBVS
@@ -95,17 +95,17 @@ legend(string,'Interpreter','latex','FontSize',12,'Location','best')
 
 %erreur sur les angles
 fig2 = figure();
-erreur_a1 = angles(:,1,:)-angles_des(1);
-erreur_a2 = angles(:,2,:)-angles_des(2);
-erreur_a3 = angles(:,3,:)-angles_des(3);
+erreur_a1 = rad2deg(angles(:,1,:)-angles_des(1));
+erreur_a2 = rad2deg(angles(:,2,:)-angles_des(2));
+erreur_a3 = rad2deg(angles(:,3,:)-angles_des(3));
 plot(1:nsteps,squeeze(erreur_a1))
 xlim([0 50])
 hold on
 plot(1:nsteps,squeeze(erreur_a2))
 plot(1:nsteps,squeeze(erreur_a3))
 xlabel('Nombre de step','Interpreter','latex','FontSize',12) % abscisses
-ylabel('Erreur sur les angles (rad)','Interpreter','latex','FontSize',12) % Ordonnee
-string = {"$$\psi$$", "$$\theta$$","$$\phi$$"}; % Deux entrees pour la legende (dans l'ordre!)
+ylabel('Erreur sur les angles (deg)','Interpreter','latex','FontSize',12) % Ordonnee
+string = {"$$\phi$$", "$$\theta$$","$$\psi$$"}; % Deux entrees pour la legende (dans l'ordre!)
 legend(string,'Interpreter','latex','FontSize',12,'Location','best')
 
 hold off
