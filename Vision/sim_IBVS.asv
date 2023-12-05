@@ -82,16 +82,17 @@ for i=1:length(p)
                 pd(2,3)-p(2,3,i);
                 pd(1,4)-p(1,4,i);
                 pd(2,4)-p(2,4,i)];
-    norm_e(i) = norm(e_de_t(:,i));
+    norm_e(i) = norm(e_de_t);
 end
 
 
-plot(1:nsteps,norm_e/norm_e0);
+plot(1:nsteps,norm_e/norm_e);
 xlim([0 50])
 xlabel('Nombre de step','Interpreter','latex','FontSize',12) % abscisses
-ylabel('Erreur normalisee','Interpreter','latex','FontSize',12) % Ordonnee
-string = {"Erreur"}; % Deux entrees pour la legende (dans l'ordre!)
+ylabel('Erreur','Interpreter','latex','FontSize',12) % Ordonnee
+string = {"P1", "P2","P3","P4"}; % Deux entrees pour la legende (dans l'ordre!)
 legend(string,'Interpreter','latex','FontSize',12,'Location','best')
+hold off
 
 %erreur sur les angles
 fig2 = figure();
@@ -104,8 +105,8 @@ hold on
 plot(1:nsteps,squeeze(erreur_a2))
 plot(1:nsteps,squeeze(erreur_a3))
 xlabel('Nombre de step','Interpreter','latex','FontSize',12) % abscisses
-ylabel('Erreur sur les angles (rad)','Interpreter','latex','FontSize',12) % Ordonnee
-string = {"$$\psi$$", "$$\theta$$","$$\phi$$"}; % Deux entrees pour la legende (dans l'ordre!)
+ylabel('Erreur','Interpreter','latex','FontSize',12) % Ordonnee
+string = {"a1", "a2","a3"}; % Deux entrees pour la legende (dans l'ordre!)
 legend(string,'Interpreter','latex','FontSize',12,'Location','best')
 
 hold off
@@ -117,7 +118,7 @@ hold on
 plot(1:nsteps,squeeze(position_center(2,:)))
 plot(1:nsteps,squeeze(position_center(3,:)))
 xlabel('Nombre de step','Interpreter','latex','FontSize',12) % abscisses
-ylabel('Position du centre (m)','Interpreter','latex','FontSize',12) % Ordonnee
+ylabel('Position du centre','Interpreter','latex','FontSize',12) % Ordonnee
 string = {"X", "Y","Z"}; % Deux entrees pour la legende (dans l'ordre!)
 legend(string,'Interpreter','latex','FontSize',12,'Location','best')
 
